@@ -25,7 +25,7 @@ export class FoodService {
         id:2,
         price: 150,
         name: 'Chicken Curry',
-        favorite: false,
+        favorite: true,
         star: 4.5,
         tags:['Lunch', 'Dinner'],
         imageUrl: '/assets/chickenCurry.jpg',
