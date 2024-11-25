@@ -1,5 +1,6 @@
 import { assertInInjectionContext, Injectable } from '@angular/core';
 import {Food} from 'src/app/shared/models/food';
+import { Tag } from 'src/app/shared/models/tag';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,31 @@ export class FoodService {
 
   constructor() { }
 
+  getAllFoodByTag(tags:string):Food[]{
+   // return tags=="All"?this.getAll():this.getAll().filter(food=>food.tags?.includes(tags));
+    if(tags=="All"){
+      return this.getAll();
+
+    }else{
+      console.log(this.getAll().filter(food=>food.tags?.includes(tags)));
+      return this.getAll().filter(food=>food.tags?.includes(tags));
+    }
+
+  }
+
+  getAllTag():Tag[]{
+    return[
+      {name:'All', count:14},
+      { name:'FastFood' , count:4 },
+      { name:'Pizza' , count:2 },
+      { name:'Lunch' , count:3 },
+      { name:'SlowFood' , count:4 },
+      { name:'Humburger' , count:1 },
+      { name:'Fry' , count:1 },
+      { name:'Soup' , count:1 },
+   ]
+  }
+  
   getAll():Food[]{
     return [
       {
@@ -16,7 +42,7 @@ export class FoodService {
         name: 'Burger Combo',
         favorite:false,
         star: 4,
-        tags:['Fast Food','Breack Fast','Lunch'],
+        tags:['FastFood','BreackFast'],
         imageUrl: '/assets/burgerCombo.jpg',
         cookTime:'10-20',
         origin:['India','Italy']
@@ -71,7 +97,7 @@ export class FoodService {
         name: 'Pizza',
         favorite:false,
         star: 5,
-        tags:['Linch', 'Dinner'],
+        tags:['Lunch', 'Dinner'],
         imageUrl:'/assets/pizza.jpg',
         cookTime:'20-30',
         origin:['Italy', 'India'],
@@ -93,7 +119,7 @@ export class FoodService {
         name: 'Burger',
         favorite:false,
         star:5,
-        tags:['Fast Food','Lunch'],
+        tags:['FastFood','Lunch'],
         imageUrl:'/assets/burger.jpg',
         cookTime:'20-30',
         origin:['India','Italy'],
@@ -104,11 +130,15 @@ export class FoodService {
         name: 'Boild Egg',
         favorite:false,
         star: 4,
-        tags:['Break Fast','Lunch','Dinner'],
+        tags:['BreakFast','Lunch','Dinner'],
         imageUrl:'/assets/boildEgg.jpg',
         cookTime:'10-20',
         origin:['India'],
       },
     ]
   }
+  getFoodById(id:number):Food{
+    return this.getAll().find(food=>food.id==id)!;
+  }
+
 }
